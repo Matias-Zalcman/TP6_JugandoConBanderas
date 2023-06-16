@@ -6,15 +6,14 @@ function App() {
   const [pais, setPais] = useState({});
   const [puntaje, setPuntaje] = useState(0);
   const [timer, setTimer] = useState(15);
+
   // Update the count down every 1 second
   let x = setTimeout(function() {
     setTimer(timer-1);
     console.log(timer);
-    if (timer <= 0) {
-      clearTimeout(x);
+    if (timer < 1) {
+      resetTimer();
       setPuntaje(puntaje - 1);
-      getPais();
-      setTimer(15);
     }
   }, 1000);
 
@@ -22,30 +21,41 @@ function App() {
 
   useEffect(() => {getPais();}, []);
 
+  const startAnimation = (element) =>
+  {
+    element.classList.add("animateDescriptor");
+    element.addEventListener( "animationend",  function() {
+      element.classList.remove("animateDescriptor");    
+  } );
+  }
+
+  const resetTimer = () =>
+  {
+    clearTimeout(x);
+    getPais();
+    setTimer(15);
+    startAnimation(document.getElementById('timer'));
+    document.getElementById("nomPais").value = "";
+  }
+
   const comprobarPais = e =>
   {
     e.preventDefault();
     const respuesta = e.target.nomPais.value
+    resetTimer();
     if(respuesta.toLowerCase() === pais.name.toLowerCase())
     {
-      clearTimeout(x);
       setPuntaje(puntaje + 10 + timer);
     }
     else
     {
-      clearTimeout(x);
       setPuntaje(puntaje - 1);
     }
-    getPais();
-    setTimer(15);
-    document.getElementById("nomPais").value = "";
   }
 
   return (
     <div className="App">
-      <div className="countdown">
-        <div className='loader'></div>
-      </div>
+      <div className="countdown"><div id="timer" className='loader animateDescriptor'></div></div>
       <div className="card">
           <div className="title">
               <span>
@@ -66,11 +76,11 @@ function App() {
       </div>
       { pais ? <img className="flag" src={pais.flag}></img> : <div></div> }
       <br></br>
-      <p>Escribí a qué país pertenece esta bandera:</p>
+      <p className='subtitulo'>Escribí a qué país pertenece esta bandera:</p>
       <form onSubmit={e => comprobarPais(e)}>
         <input id="nomPais" className='input-text' type="text"/>
         <br></br>
-        <input className='input-sub' type="submit" value="Enviar"/>
+        <input id='restart' className='input-sub' type="submit" value="Enviar"/>
       </form>
     </div>
   );

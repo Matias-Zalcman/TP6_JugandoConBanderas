@@ -112,19 +112,14 @@
 
 .loader {
   --clr: #10B981;
-  --load-time: 15s;
-  outline: 5px solid var(--clr);
+  --load-time: 16s;
+  outline: 5px solid white;
   outline-offset: 5px;
   position: relative;
   overflow: hidden;
   border-radius: 5rem;
-  /* width: 10rem; */
-  /* height: 2rem; */
+  margin: 1%;
   padding: 1rem 5rem;
-  /* use either padding or width + height*/
-  /* I prefer the padding one */
-  /* rotate: -90deg; */
-  /* rotate if you want/need vertical loader */
 }
 
 .loader::after {
@@ -136,7 +131,6 @@
   height: 100%;
   background-color: var(--clr);
   z-index: 2;
-  animation: loading var(--load-time) ease-in-out infinite;
 }
 
 @keyframes loading {
@@ -144,7 +138,20 @@
     width: 100%;
   }
 
+  70% {
+    --clr: #d38a25;
+  }
+
+  72% {
+    --clr: #d32525;
+  }
+
   100% {
+    --clr: #d32525;
     width: 0%;
   }
+}
+
+.animateDescriptor::after {
+  animation: loading var(--load-time) ease-in-out;
 }
