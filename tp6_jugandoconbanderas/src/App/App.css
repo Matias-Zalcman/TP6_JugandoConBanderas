@@ -1,0 +1,75 @@
+.App {
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.flag {
+  margin-top: -10%;
+  width: 50%;
+  height: auto;
+}
+
+.subtitulo{
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.loader {
+  --clr: #10B981;
+  --load-time: 16s;
+  outline: 5px solid white;
+  outline-offset: 5px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5rem;
+  margin: 1%;
+  padding: 1rem 5rem;
+}
+
+.loader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--clr);
+  z-index: 2;
+}
+
+@keyframes loading {
+  0% {
+    width: 100%;
+  }
+
+  70% {
+    --clr: #d38a25;
+  }
+
+  72% {
+    --clr: #d32525;
+  }
+
+  100% {
+    --clr: #d32525;
+    width: 0%;
+  }
+}
+
+.animateDescriptor::after {
+  animation: loading var(--load-time) ease-in-out;
+}
